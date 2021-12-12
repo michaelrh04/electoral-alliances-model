@@ -17,8 +17,10 @@
  *  If not, see <https://www.gnu.org/licenses/>.
  */
 
+using Microsoft.VisualBasic.FileIO;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,7 +31,56 @@ namespace Model
     {
         static void Main(string[] args)
         {
-            
+            #region File interpretation
+            string path = args[0];
+            Console.WriteLine(" [...] Attempting to use {0}.", Path.GetFileName(path));
+            // Many thanks to Alexander Yumashev and editors for this CSV tip-off.
+            // Attribution link: https://stackoverflow.com/a/20523165.
+            using (TextFieldParser csvReader = new TextFieldParser(path) { TextFieldType = FieldType.Delimited, Delimiters = new string[] { "," } })
+            {
+                bool headers = true;
+                while(!csvReader.EndOfData)
+                {
+                    Console.WriteLine("Processing new row.");
+                    string[] row = csvReader.ReadFields();
+                    int fieldRowIndex = 0;
+                    foreach(string field in row)
+                    {
+                        #region Reading dataset headers (party names) and party creation
+                        if (headers)
+                        {
+                            if(fieldRowIndex > 2)
+                            {
+                                Parties.Add(new Party()
+                                {
+                                    Name = field
+                                });
+                                Console.WriteLine("Found party {0}.", field);
+                            }
+                        }
+                        #endregion
+                        else
+                        {
+                            // Here, insert the reading of data and population of Constituencies.
+                        }
+                        fieldRowIndex++;
+                    }
+                    headers = false;
+                }
+            }
+            #endregion
+            Console.ReadLine();
         }
+
+        #region Variable and constants
+        /// <summary>
+        /// A list of all constituencies in this election found in the dataset. After model completion, is also your results list.
+        /// </summary>
+        static List<Constituency> Constituencies;
+        /// <summary>
+        /// An array of all parties found in the dataset. The index of each party will correspond with its dataset column index.
+        /// </summary>
+        static List<Party> Parties = new List<Party> { null, null, null };
+        #endregion
     }
 }
