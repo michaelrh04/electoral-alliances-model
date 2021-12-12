@@ -36,13 +36,19 @@ namespace Model
             #region Model initialisation error handling
             // An election dataset must be provided to the model.
             // Please consult README.md on opening a dataset using this model.
-            if (args.Length == 0) { throw new ArgumentException("No argument (dataset CSV file) provided. Please consult the README.md for instructions on using this software."); }
-            else if (Path.GetExtension(args[0]) != ".csv") { throw new ArgumentException("Dataset file provided not in correct (CSV) format. Please consult the README.md for instructions on using this software."); }
+            if (args.Length == 0 || Path.GetExtension(args[0]) != ".csv") { FatalError("You must provide a valid argument (dataset CSV file).\n Please consult the README.md for instructions on using this software.", new ArgumentException()); }
             #endregion
             // The election dataset provided appears valid.
             string path = args[0];
             Console.WriteLine(" The dataset argument appears valid. The model will attempt to use {0}.", Path.GetFileName(path));
             // Instantiate new model class and run model.
+        }
+
+        static void FatalError(string message, Exception exception)
+        {
+            Console.WriteLine($" === MODEL COULD NOT COMPLETE ===\n A fatal exception has occured ({exception.Message.ToLower().Remove(exception.Message.Length - 1)})!\n Next steps: {message}\n\n Press any key to exit.");
+            Console.ReadLine();
+            Environment.Exit(-1);
         }
 
         #region Variable and constants
