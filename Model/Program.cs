@@ -32,6 +32,12 @@ namespace Model
         static void Main(string[] args)
         {
             DisplayLicenseNotice();
+            #region Model initialisation error handling
+            // An election dataset must be provided to the model.
+            // Please consult README.md on opening a dataset using this model.
+            if (args.Length == 0) { throw new ArgumentException("No argument (dataset CSV file) provided. Please consult the README.md for instructions on using this software."); }
+            else if (Path.GetExtension(args[0]) != ".csv") { throw new ArgumentException("Dataset file provided not in correct (CSV) format. Please consult the README.md for instructions on using this software."); }
+            #endregion
             #region File interpretation
             string path = args[0];
             Console.WriteLine(" [...] Attempting to use {0}.", Path.GetFileName(path));
