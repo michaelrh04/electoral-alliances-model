@@ -38,52 +38,17 @@ namespace Model
             if (args.Length == 0) { throw new ArgumentException("No argument (dataset CSV file) provided. Please consult the README.md for instructions on using this software."); }
             else if (Path.GetExtension(args[0]) != ".csv") { throw new ArgumentException("Dataset file provided not in correct (CSV) format. Please consult the README.md for instructions on using this software."); }
             #endregion
-            #region File interpretation
+            // The election dataset provided appears valid.
             string path = args[0];
-            Console.WriteLine(" [...] Attempting to use {0}.", Path.GetFileName(path));
-            // Many thanks to Alexander Yumashev and editors for this CSV tip-off.
-            // Attribution link: https://stackoverflow.com/a/20523165.
-            using (TextFieldParser csvReader = new TextFieldParser(path) { TextFieldType = FieldType.Delimited, Delimiters = new string[] { "," } })
-            {
-                bool headers = true;
-                while(!csvReader.EndOfData)
-                {
-                    Console.WriteLine("Processing new row.");
-                    string[] row = csvReader.ReadFields();
-                    int fieldRowIndex = 0;
-                    foreach(string field in row)
-                    {
-                        #region Reading dataset headers (party names) and party creation
-                        if (headers)
-                        {
-                            if(fieldRowIndex > 2)
-                            {
-                                Parties.Add(new Party()
-                                {
-                                    Name = field
-                                });
-                                Console.WriteLine("Found party {0}.", field);
-                            }
-                        }
-                        #endregion
-                        else
-                        {
-                            // Here, insert the reading of data and population of Constituencies.
-                        }
-                        fieldRowIndex++;
-                    }
-                    headers = false;
-                }
-            }
-            #endregion
-            Console.ReadLine();
+            Console.WriteLine(" The dataset argument appears valid. The model will attempt to use {0}.", Path.GetFileName(path));
+            // Instantiate new model class and run model.
         }
 
         #region Variable and constants
         /// <summary>
         /// A list of all constituencies in this election found in the dataset. After model completion, is also your results list.
         /// </summary>
-        static List<Constituency> Constituencies;
+        static List<Constituency> Constituencies = new List<Constituency>();
         /// <summary>
         /// An array of all parties found in the dataset. The index of each party will correspond with its dataset column index.
         /// </summary>
