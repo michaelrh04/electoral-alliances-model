@@ -39,6 +39,10 @@ namespace Model
         /// </summary>
         public string Region { get; set; }
         /// <summary>
+        /// The number of registered and potential voters (electorate), if applicable, of the constituency.
+        /// </summary>
+        public int Electorate { get; set; }
+        /// <summary>
         /// The results of this constituency election.
         /// </summary>
         public Dictionary<Party, int> Results { get; set; }
