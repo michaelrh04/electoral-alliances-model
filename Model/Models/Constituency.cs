@@ -28,7 +28,7 @@ namespace Model
     /// <summary>
     /// Logic for/class representing a single constituency/electoral region.
     /// </summary>
-    class Constituency
+    public class Constituency
     {
         /// <summary>
         /// The name of the constituency.
