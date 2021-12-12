@@ -31,6 +31,7 @@ namespace Model
     {
         static void Main(string[] args)
         {
+            DisplayLicenseNotice();
             #region File interpretation
             string path = args[0];
             Console.WriteLine(" [...] Attempting to use {0}.", Path.GetFileName(path));
@@ -81,6 +82,10 @@ namespace Model
         /// An array of all parties found in the dataset. The index of each party will correspond with its dataset column index.
         /// </summary>
         static List<Party> Parties = new List<Party> { null, null, null };
+        /// <summary>
+        /// For the sake of convenience.
+        /// </summary>
+        static void DisplayLicenseNotice() => Console.WriteLine("\n This program is part of the www.michaelrh04.co.uk electoral pacts model.\n It is licensed for re-use, modification, and distribution under the\n GNU General Public License version 3 or later.\n\n COPYRIGHT (C) 2021 MICHAEL HARGREAVES\n"); 
         #endregion
     }
 }
