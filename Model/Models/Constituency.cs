@@ -38,5 +38,9 @@ namespace Model
         /// The region or nation, if applicable, of the constituency.
         /// </summary>
         public string Region { get; set; }
+        /// <summary>
+        /// The results of this constituency election.
+        /// </summary>
+        public Dictionary<Party, int> Results { get; set; }
     }
 }
