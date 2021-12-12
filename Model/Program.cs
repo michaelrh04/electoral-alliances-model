@@ -25,6 +25,9 @@ using System.Threading.Tasks;
 
 namespace Model
 {
+    /// <summary>
+    /// Class containing all model logic, including input and output
+    /// </summary>
     class Program
     {
         static void Main(string[] args)
